@@ -1,0 +1,84 @@
+{% extends "burgerkingapp/core.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+<div class = "row">
+	<div class = "col-md">
+
+		<hr>
+		<div class = "card card-body">
+			<a href="/" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">BURGER'S</a>
+			
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr class="table-primary">
+					<th>Product Name</th>
+				<!--	<th>Product Description</th>-->
+		        	<th>Product Image</th> 
+		        	<th>Product Price</th>
+		        	<th> Cart</th> 
+				</tr>
+				{% for i in products %}
+				<tr class="table-info">
+					<td>
+						
+						<a href="{{i.id}}" class="btn btn-warning" id = '{{i.id}}'>{{i.name}}</a> 
+						
+                       
+					</td>
+					<!--
+					<td>
+						{{i.description}}
+						 
+					</td>
+				-->
+				   <td>
+				   	<div class="card" style="width: 18rem;">
+				   	<img class="card-img-top" src="{{i.image.url }}">
+				   </div>
+
+				   </td> 
+				   <td>$ {{i.price}}
+				   	<!--
+				   	<div class="card" style="width: 18rem;">
+				   	<img class="card-img-top" src="{{ i.picture.url }}">
+				   </div>
+
+				-->
+
+				   </td>
+				   <td>
+				   	<table class="table">
+				   		<tr>
+				   	<td>
+				   	<form action="{% url "cart:cart_add" i.id %}" method="post">
+				   		<div class="form-group">
+	     				 	{{ cart_product_form }}
+	      					{% csrf_token %}
+	      					<button type="submit" class="btn btn-primary" value="Add to cart">
+	      						Add to Cart
+	      					</button>
+	      					<!--<input type="submit" value="Add to cart">-->
+	      				
+	      				</div>
+	    			</form>
+	    			</td>
+	    			</tr>
+	    			
+	    		   </table>
+				   </td>
+				   
+
+				   
+					</tr>
+
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

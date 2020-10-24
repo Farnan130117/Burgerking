@@ -1,0 +1,36 @@
+{% extends "burgerkingapp/core.html" %}
+{% load static %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class = "row">
+<div class = "col-md">
+  
+
+  <div class="card">
+    
+   <h5 class="card-header"><img src="{% if product.image %}{{ product.image.url }}{% else %}
+    {% static "img/no_image.png" %}{% endif %}"></h5>
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">{{ product.description|linebreaks }}</p>
+    <form action="{% url "cart:cart_add" product.id %}" method="post">
+      {{ cart_product_form }}
+      {% csrf_token %}
+      <input type="submit" value="Add to cart">
+    </form>
+    <a href="{{"/"}}" class="btn btn-primary">Continue Buying</a>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+

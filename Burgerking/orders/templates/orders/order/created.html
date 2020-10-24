@@ -1,0 +1,43 @@
+{% extends "burgerkingapp/core.html" %}
+
+{% block title %}
+  Thank you
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Thank you</h1>
+  <p>
+  	Your order has been successfully completed.
+    Your order number is
+    <strong>{{ order.id }}</strong>.
+    <br>
+  </p>
+  <!--
+  Your order number is
+  <strong>{{ order.id }}</strong>
+  <br>
+  <strong>{{ order.customer_name }}</strong>
+  <br>
+  <h2>Deposit Amount  {{total}}</h2>
+  <h2> Return Amount {{amount_return}}</h2>
+-->
+
+  <table class = 'w-50 table table-light' style="border-radius:20px;background-color:#E3E4FA;">
+  	<tr>
+  		<th>Customer Name </th>
+  		<th>Customer Mobile</th>
+  		<th>Deposit Amount</th>
+  		<th>Paid Amount</th>
+  		<th>Return Amount</th>
+  	</tr>
+  	<tr>
+  		<td><strong>{{ order.customer_name }}</strong></td>
+  		<td><strong>{{ order.customer_mobile }}</strong></td>
+  		<td><strong>{{ order.deposit_amount }}</strong></td>
+  		<td><strong>{{ order.paid_amount }}</strong></td>
+  		<td><strong>{{ order.return_amount }}</strong></td>
+  	</tr>
+  </table>
+ </div>
+{% endblock %}

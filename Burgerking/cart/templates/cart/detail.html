@@ -1,0 +1,91 @@
+{% extends "burgerkingapp/core.html" %}
+{% load static %}
+
+{% block title %}
+  Your shopping cart
+{% endblock %}
+
+{% block content %}
+<div class="card">
+
+
+  <h1>Your cart</h1>
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Unit price</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>
+              <div class="card" style="width: 18rem;">
+
+                  
+                    <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}
+                    {% else %}{% static "img/no_image.png" %}{% endif %}">
+                  
+           </div>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>
+              <form action="{% url "cart:cart_add" product.id %}" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.override }}
+                <input type="submit" value="Update">
+                {% csrf_token %}
+              </form>
+            </td>
+            <td>
+              <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                <input type="submit" value="Remove">
+                {% csrf_token %}
+              </form>
+            </td>
+            <td class="num">${{ item.price }}</td>
+            <td class="num">${{ item.total_price }}</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <tr class="total">
+        <td>
+         <strong>Total</strong>
+        </td>
+        <td colspan="4"></td>
+       <td class="num">
+        <strong> ${{ cart.get_total_price }} </strong>
+      </td> 
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="text-right">
+    
+        
+    <a href="{% url "orders:order_create" %}" class="button">
+      <button type="button" class="btn btn-primary" >
+      Place Order
+      </button>
+    </a>  
+
+    
+
+  
+  </p>
+
+</div>
+
+
+
+
+{% endblock %}
